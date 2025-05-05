@@ -5,7 +5,9 @@
 是原文Algorithm 1所对应的源代码；
 ### zksmp_alg2:
 是原文Algorithm 3所对应的源代码；
+### rsa_zksmp_alg3:
+是原文Algorithm 4所对应的源代码；
 ### ecc_zksmp_alg3:
-是原文Algorithm 6所对应的源代码；
+是原文Algorithm 5所对应的源代码；
 ### contzksmp：
 是本文的系统实现代码。
