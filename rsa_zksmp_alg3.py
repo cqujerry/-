@@ -118,7 +118,7 @@ def plot_time_vs_set_size():
     # Part1: from 10 to 100, each repeated 10 times => average pickV_time
     set_sizes = range(10, 101, 1)
     REPEAT = 10
-    Sign_list = []
+    Share_list = []
 
     for size in set_sizes:
         sum_Sign = 0.0
@@ -126,13 +126,13 @@ def plot_time_vs_set_size():
             Phi = list(range(1, size+1))
             sigma = random.choice(Phi)
             data_ = time_protocol_generation(Phi, sigma)
-            sum_Sign += data_["sign_time"]
+            sum_Share += data_["share_time"]
         # 平均
-        Sign_list.append(sum_Sign / REPEAT)
+        Share_list.append(sum_Share / REPEAT)
 
     import matplotlib.pyplot as plt
     plt.figure(figsize=(10,5))
-    plt.plot(set_sizes, Sign_list)
+    plt.plot(set_sizes, Share_list)
     plt.title('Witness Generate Time vs Phi size')
     plt.xlabel('Set Size (Phi)')
     plt.ylabel('Time (ms)')
@@ -140,13 +140,12 @@ def plot_time_vs_set_size():
     plt.grid(True)
     plt.show()
 
-    # Part2: size=15, repeated=50 => commit, step2, challenge, step5, verify
+    # Part2: size=15, repeated=50 => commit_time, blinding_time, prove_time, verify_time
     FIXED_SIZE = 15
     REPEAT2 = 50
     sum_commit=0.0
-    sum_step2=0.0
-    sum_chal=0.0
-    sum_step5=0.0
+    sum_blinding=0.0
+    sum_prove=0.0
     sum_verify=0.0
 
     for _ in range(REPEAT2):
@@ -154,22 +153,19 @@ def plot_time_vs_set_size():
         sigma = random.choice(Phi)
         data_ = time_protocol_generation(Phi, sigma)
         sum_commit += data_["commit_time"]
-        sum_step2  += data_["step2_time"]
-        sum_chal   += data_["challenge_time"]
-        sum_step5  += data_["step5_time"]
+        sum_blinding  += data_["blinding_time"]
+        sum_prove += data_["prove_time"]
         sum_verify += data_["verify_time"]
 
     avg_commit = sum_commit/REPEAT2
-    avg_step2  = sum_step2 /REPEAT2
-    avg_chal   = sum_chal /REPEAT2
-    avg_step5  = sum_step5/REPEAT2
+    avg_blinding  = sum_blinding /REPEAT2
+    avg_prove = sum_prove/REPEAT2
     avg_ver    = sum_verify/REPEAT2
 
     print(f"[Fixed Size={FIXED_SIZE}, repeated={REPEAT2} runs] Averages:")
     print(f"  Commit Time: {avg_commit:.3f} ms")
-    print(f"  Step2 Time:  {avg_step2:.3f} ms")
-    print(f"  Challenge:   {avg_chal:.3f} ms")
-    print(f"  Step5 Time:  {avg_step5:.3f} ms")
+    print(f"  Blinding Time:  {avg_blinding:.3f} ms")
+    print(f"  Prove Time:  {avg_prove:.3f} ms")
     print(f"  Verify Time: {avg_ver:.3f} ms")
 
 
